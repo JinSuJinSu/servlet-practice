@@ -7,14 +7,14 @@
 <title>방명록</title>
 </head>
 <body>
-	<form method="post" action="">
-	<input type='hidden' name="id" value="">
+	<form method="post" action="/guestbook01/delete.jsp">
+	<input type="hidden" name="no" value=<%= request.getParameter("no") %>>
 	<table>
 		<tr>
 			<td>비밀번호</td>
 			<td><input type="password" name="password"></td>
-			<td><input type="submit" value="확인"></td>
-			<td><a href="">메인으로 돌아가기</a></td>
+			<td><input type="submit" value="삭제"></td>
+			<td><a href="/guestbook01/index.jsp">메인으로 돌아가기</a></td>
 		</tr>
 	</table>
 	</form>
