@@ -23,7 +23,7 @@
 
 
 	<build>
-		<finalName>emaillist01</finalName>
+		<finalName>guestbook01</finalName>
 		<sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
 		<resources>
 			<resource>
