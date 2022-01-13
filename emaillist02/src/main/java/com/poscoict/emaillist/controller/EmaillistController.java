@@ -1,10 +1,16 @@
 package com.poscoict.emaillist.controller;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.poscoict.emaillist.dao.EmaillistDao;
+import com.poscoict.emaillist.vo.EmaillistVo;
 
 
 public class EmaillistController extends HttpServlet {
@@ -12,11 +18,30 @@ public class EmaillistController extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String actionName = request.getParameter("a");
-		if(actionName.equals("list")) {
+		if("form".equals(actionName)) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/form.jsp");
+			rd.forward(request, response);
 		}
-		else if(actionName.equals("form")) {
+		else if("add".equals(actionName)) {
+			request.setCharacterEncoding("UTF-8");
+			String firstName = request.getParameter("fn");
+			String lastName = request.getParameter("ln");
+			String email = request.getParameter("email");
+			
+			EmaillistVo vo = new EmaillistVo();
+			EmaillistDao dao = new EmaillistDao();
+			vo.setFirstName(firstName);
+			vo.setLastName(lastName);
+			vo.setEmail(email);
+			boolean result = dao.insert(vo);
+			response.sendRedirect(request.getContextPath() + "/el");
 		}
-		else if(actionName.equals("add")) {
+		else {
+			EmaillistDao dao = new EmaillistDao();
+			List<EmaillistVo> list = dao.findAll();
+			request.setAttribute("list", list);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/index.jsp");
+			rd.forward(request, response);
 		}
 	}
 
