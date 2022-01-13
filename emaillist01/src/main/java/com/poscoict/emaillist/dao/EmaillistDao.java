@@ -19,15 +19,7 @@ public class EmaillistDao {
 		ResultSet rs = null;
 		List<EmaillistVo> result = new ArrayList<>();
 		try {
-			// 1. JDBC 드라이버 로딩
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			// 2. 연결하기
-			String url = "jdbc:mysql://localhost:3306/webdb?characterEncoding=UTF-8&serverTimezone=UTC";
-			String user = "webdb";
-			String passwd = "webdb";
-			conn = DriverManager.getConnection(url, user, passwd);
-			
+			conn = getConnection();
 			// 3. SQL 준비
 			String sql = "select no, first_name, last_name, email from emaillist order by no desc";
 			stmt = conn.createStatement();
@@ -52,11 +44,8 @@ public class EmaillistDao {
 			}
 			
 		}
-		catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패 : " + e.getMessage());
-		}
 		catch (SQLException e) {
-			System.out.println("드라이버 로딩 실패 : " + e.getMessage());
+			System.out.println("error : " + e);
 		}
 		finally {
 			// 자원 정리
@@ -86,15 +75,7 @@ public class EmaillistDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			// 1. JDBC 드라이버 로딩
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			// 2. 연결하기
-			String url = "jdbc:mysql://localhost:3306/webdb?characterEncoding=UTF-8&serverTimezone=UTC";
-			String user = "webdb";
-			String passwd = "webdb";
-			conn = DriverManager.getConnection(url, user, passwd);
-			
+			conn = getConnection();
 			// 3. SQL 준비
 			String sql = "insert into emaillist values(null, ?,?,?)";
 			pstmt = conn.prepareStatement(sql);
@@ -108,11 +89,8 @@ public class EmaillistDao {
 			int count = pstmt.executeUpdate(); //insert가 된 수를 말한다.
 			result = count==1;
 		}
-		catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패 : " + e.getMessage());
-		}
 		catch (SQLException e) {
-			System.out.println("드라이버 로딩 실패 : " + e.getMessage());
+			System.out.println("error : " + e);
 		}
 		finally {
 			// 자원 정리
@@ -133,6 +111,24 @@ public class EmaillistDao {
 		}
 		return result;
 	}
+	private Connection getConnection() throws SQLException{
+		Connection conn=null;
+		try {
+			// 1. JDBC 드라이버 로딩
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// 2. 연결하기
+			String url = "jdbc:mysql://localhost:3306/webdb?characterEncoding=UTF-8&serverTimezone=UTC";
+			String user = "webdb";
+			String passwd = "webdb";
+			conn = DriverManager.getConnection(url, user, passwd);
+		}
+		catch (ClassNotFoundException e) {
+			System.out.println("드라이버 로딩 실패 : " + e.getMessage());
+		}
+		return conn;
+	}
+		
 }
 
 
