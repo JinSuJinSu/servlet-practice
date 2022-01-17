@@ -1,8 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
-<%@ page import="com.poscoict.guestbook.dao.GuestbookDao" %>
-<%@ page import="com.poscoict.guestbook.vo.GuestbookVo" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% pageContext.setAttribute("newline", "\n"); %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +12,7 @@
 <title>방명록</title>
 </head>
 <body>
-	<form action="<%= request.getContextPath()%>/gb?a=add" method="post">
+	<form action="${pageContext.request.contextPath}/gb?a=add" method="post">
 	<table border=1 width=500>
 		<tr>
 			<td>이름</td><td><input type="text" name="name"></td>
@@ -26,25 +28,20 @@
 	</form>
 	<br>
 	<table width=510 border=1>
-<%
-	List<GuestbookVo> list = (List<GuestbookVo>)request.getAttribute("list");
-	for(GuestbookVo vo : list){
-%>
-		<tr>
-			<td>[<%= list.indexOf(vo)+1 %>]</td>
-			<td><%= vo.getName() %></td>
-			<td><%= vo.getRegDate() %></td>
-			<td><a href="<%= request.getContextPath()%>/gb?a=deleteform&no=<%= vo.getNo() %>">삭제</a></td>
-		</tr>
-		<tr>
-			<td colspan=4>
-				<%= vo.getMessage().replaceAll("\\n","<br>") %>
-			</td>
-		</tr>
-<%
-	}	
-%>
-		
+		<c:forEach items="${list}" var="vo">			
+				<tr>
+					<td>${list.indexOf(vo)+1}</td>
+					<td>${vo.name}</td>
+					<td>${vo.regDate}</td>
+					<td><a href="${pageContext.request.contextPath}/gb?a=deleteform&no=${vo.no}">삭제</a></td>
+				</tr>
+				<tr>
+					<td colspan=4>
+						${fn:replace(vo.message, newline, "<br/>")}	
+					</td>
+				</tr>
+			</c:forEach>
+
 	</table>
 </body>
 </html>
