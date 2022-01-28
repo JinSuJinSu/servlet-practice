@@ -8,7 +8,6 @@
 <%
 EmaillistDao dao = new EmaillistDao();
 List<EmaillistVo> list = dao.findAll();
-
 %>
 
 <head>
