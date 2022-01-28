@@ -48,7 +48,7 @@ public class _01Servlet extends HttpServlet {
 		request.setAttribute("m", map);
 		
 
-		request.getRequestDispatcher("WEB-INF/views/01.jsp").forward(request,response);
+		request.getRequestDispatcher("/WEB-INF/views/01.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
