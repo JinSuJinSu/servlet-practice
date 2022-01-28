@@ -16,14 +16,13 @@
 	</properties>	
 	
 	<dependencies>
-		<!--  servlet  -->
+		<!-- servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-				<!--  jsp  -->
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
@@ -31,7 +30,6 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-	
 	
 	<build>
 		<finalName>helloweb</finalName>
@@ -76,12 +74,12 @@
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<version>1.1</version>
 				<configuration>
-					<url>http://127.0.0.1:8080/manager/test</url>
+					<url>http://127.0.0.1:8080/manager/text</url>
 					<path>/helloweb</path>
 					<username>admin</username>
 					<password>manager</password>
 				</configuration>
-			</plugin>
+			</plugin>			
 		</plugins>
 	</build>	
 </project>
